@@ -1,5 +1,5 @@
 import { createRef, Dispatch, SetStateAction, useEffect } from "react";
-import { Container, Option, StyledCarousel } from "./Carousel.styled";
+import { Container, Option, OptionContainer, StyledCarousel } from "./Carousel.styled";
 import { CarouselRef } from "antd/es/carousel";
 import { Calendar } from "../calendar/Calendar";
 
@@ -36,9 +36,9 @@ export const Carousel = ({ activeTab, setActiveTab }: CarouselProps) => {
         infinite={false}
       >
         {contentArray.map((content) => (
-          <div>
+          <OptionContainer>
             <Option>{content}</Option>
-          </div>
+          </OptionContainer>
         ))}
       </StyledCarousel>
     </Container>
