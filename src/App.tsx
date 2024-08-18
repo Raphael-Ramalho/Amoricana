@@ -1,16 +1,14 @@
-import { Radio } from "antd";
-import { MainSection } from "./App.styled";
+import { Content, MainSection } from "./App.styled";
+import { Navigation } from "./components/navigation/Navigation";
 
 function App() {
-
   return (
     <MainSection>
-      <>ola</>
+      <Content>
+        <>ola</>
+      </Content>
 
-      <Radio.Group onChange={()=>{}}>
-        <Radio.Button value="top">Horizontal</Radio.Button>
-        <Radio.Button value="left">Vertical</Radio.Button>
-      </Radio.Group>
+      <Navigation />
     </MainSection>
   );
 }

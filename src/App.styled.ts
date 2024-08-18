@@ -7,4 +7,10 @@ export const MainSection = styled.div`
   background-size: cover;
   background-position: center;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const Content = styled.div`
+  flex-grow: 1;
 `;
