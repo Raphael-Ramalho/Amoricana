@@ -16,7 +16,7 @@ export const Navigation = ({ activeTab, setActiveTab }: NavigationProps) => {
         onChange={({ target }) => setActiveTab(target.value)}
       >
         <StyledButton value={0}>Teste 1</StyledButton>
-        <StyledButton value={1}>Teste 2</StyledButton>
+        <StyledButton value={1}>Calendário</StyledButton>
         <StyledButton value={2}>Teste 3</StyledButton>
       </StyledGroup>
     </Container>

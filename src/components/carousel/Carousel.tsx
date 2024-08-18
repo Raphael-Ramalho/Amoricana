@@ -1,6 +1,7 @@
 import { createRef, Dispatch, SetStateAction, useEffect } from "react";
 import { Container, Option, StyledCarousel } from "./Carousel.styled";
 import { CarouselRef } from "antd/es/carousel";
+import { Calendar } from "../calendar/Calendar";
 
 type CarouselProps = {
   activeTab: number;
@@ -14,18 +15,9 @@ const boxes = (value: object) => (
 );
 
 const contentArray = [
-  {
-    id: 0,
-    content: boxes({ backgroundColor: "red" }),
-  },
-  {
-    id: 1,
-    content: boxes({ backgroundColor: "green" }),
-  },
-  {
-    id: 2,
-    content: boxes({ backgroundColor: "yellow" }),
-  },
+  boxes({ backgroundColor: "red" }),
+  <Calendar />,
+  boxes({ backgroundColor: "yellow" }),
 ];
 
 export const Carousel = ({ activeTab, setActiveTab }: CarouselProps) => {
@@ -43,8 +35,10 @@ export const Carousel = ({ activeTab, setActiveTab }: CarouselProps) => {
         swipe={true}
         infinite={false}
       >
-        {contentArray.map(({ content }) => (
-          <Option>{content}</Option>
+        {contentArray.map((content) => (
+          <div>
+            <Option>{content}</Option>
+          </div>
         ))}
       </StyledCarousel>
     </Container>

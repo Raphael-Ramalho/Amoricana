@@ -20,4 +20,5 @@ export const StyledCarousel = styled(Carousel)`
 
 export const Option = styled.div`
   height: 100%;
+  padding: 1.4rem;
 `;
