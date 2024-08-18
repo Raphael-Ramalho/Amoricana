@@ -11,6 +11,3 @@ export const MainSection = styled.div`
   flex-direction: column;
 `;
 
-export const Content = styled.div`
-  flex-grow: 1;
-`;

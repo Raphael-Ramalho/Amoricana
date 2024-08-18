@@ -8,7 +8,15 @@ export const Container = styled.div`
 `;
 
 export const StyledButton = styled(Button)`
-  flex-grow: 1;
+  &&& {
+    flex-grow: 1;
+    border-radius: 0;
+  }
+  span {
+    text-align: center;
+    width: 100%;
+    display: block;
+  }
 `;
 
 export const StyledGroup = styled(Group)`
