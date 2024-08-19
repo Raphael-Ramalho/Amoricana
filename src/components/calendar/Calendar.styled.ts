@@ -9,8 +9,8 @@ export const StyledCalendar = styled(Calendar)`
 
 export const Circle = styled.div<{ isActive?: boolean }>`
   margin: 0 auto;
-  width: 0.4rem;
-  height: 0.4rem;
+  width: 0.6rem;
+  height: 0.6rem;
   background-color: red;
   border-radius: 100%;
 
@@ -22,24 +22,24 @@ export const Circle = styled.div<{ isActive?: boolean }>`
 `;
 
 export const Container = styled.div<{ isToday?: boolean }>`
-  margin: 0 0.4rem;
-  padding: 0.4rem 0;
+  margin: 0 0.6rem;
+  padding: 0.6rem 0;
   ${({ isToday }) =>
     isToday &&
     css`
-      background-color: lightblue;
+      background-color: lightgreen;
     `}
 `;
 
 export const CalendarArea = styled.div`
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
 
 export const DescriptionArea = styled.div`
-    background-color: white;
-    margin-top: 1.4rem;
-    flex-grow: 1;
-    border-radius: 8px;
+  background-color: white;
+  margin-top: 1.4rem;
+  flex-grow: 1;
+  border-radius: 0.8rem;
 `;

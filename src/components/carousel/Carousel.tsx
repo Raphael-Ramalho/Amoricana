@@ -1,26 +1,18 @@
-import { createRef, Dispatch, SetStateAction, useEffect } from "react";
-import { Container, Option, OptionContainer, StyledCarousel } from "./Carousel.styled";
+import { createRef, useEffect } from "react";
+import {
+  Container,
+  Option,
+  OptionContainer,
+  StyledCarousel,
+} from "./Carousel.styled";
 import { CarouselRef } from "antd/es/carousel";
-import { Calendar } from "../calendar/Calendar";
+import { GeneralProps } from "../../App.type";
 
-type CarouselProps = {
-  activeTab: number;
-  setActiveTab: Dispatch<SetStateAction<number>>;
-};
-
-const boxes = (value: object) => (
-  <div
-    style={{ width: "300px", height: "300px", margin: "30px auto", ...value }}
-  />
-);
-
-const contentArray = [
-  boxes({ backgroundColor: "red" }),
-  <Calendar />,
-  boxes({ backgroundColor: "yellow" }),
-];
-
-export const Carousel = ({ activeTab, setActiveTab }: CarouselProps) => {
+export const Carousel = ({
+  activeTab,
+  setActiveTab,
+  contentArray,
+}: GeneralProps) => {
   const carouselRef = createRef<CarouselRef>();
 
   useEffect(() => {
@@ -32,11 +24,12 @@ export const Carousel = ({ activeTab, setActiveTab }: CarouselProps) => {
       <StyledCarousel
         ref={carouselRef}
         afterChange={setActiveTab}
-        swipe={true}
+        waitForAnimate
+        swipe
         infinite={false}
       >
-        {contentArray.map((content) => (
-          <OptionContainer>
+        {contentArray.map(({ content, id }) => (
+          <OptionContainer key={id}>
             <Option>{content}</Option>
           </OptionContainer>
         ))}

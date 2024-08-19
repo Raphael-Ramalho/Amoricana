@@ -1,23 +1,24 @@
-import { Dispatch, SetStateAction } from "react";
-import { Container, StyledButton, StyledGroup } from "./Navigation.styled";
+import { Container, TextContent, StyledButton, StyledGroup, IconContent } from "./Navigation.styled";
+import { GeneralProps } from "../../App.type";
 
-type NavigationProps = {
-  activeTab: number;
-  setActiveTab: Dispatch<SetStateAction<number>>;
-};
-
-export const Navigation = ({ activeTab, setActiveTab }: NavigationProps) => {
+export const Navigation = ({
+  activeTab,
+  setActiveTab,
+  contentArray,
+}: GeneralProps) => {
   return (
     <Container>
       <StyledGroup
-        style={{ width: "100vw", display: "flex" }}
-        size={"large"}
-        defaultValue={activeTab}
         onChange={({ target }) => setActiveTab(target.value)}
+        size={"large"}
+        value={activeTab}
       >
-        <StyledButton value={0}>Teste 1</StyledButton>
-        <StyledButton value={1}>Calendário</StyledButton>
-        <StyledButton value={2}>Teste 3</StyledButton>
+        {contentArray.map(({ id, name, icon }) => (
+          <StyledButton key={id} value={id}>
+            <IconContent>{icon}</IconContent>
+            <TextContent>{name.toUpperCase()}</TextContent>
+          </StyledButton>
+        ))}
       </StyledGroup>
     </Container>
   );
