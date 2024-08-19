@@ -1,4 +1,10 @@
-import { Container, TextContent, StyledButton, StyledGroup, IconContent } from "./Navigation.styled";
+import {
+  Container,
+  TextContent,
+  StyledButton,
+  StyledGroup,
+  IconContent,
+} from "./Navigation.styled";
 import { GeneralProps } from "../../App.type";
 
 export const Navigation = ({

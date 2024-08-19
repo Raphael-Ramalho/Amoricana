@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import { Radio } from "antd";
+import { Text } from "../generic/generic.style";
 
 const { Button, Group } = Radio;
 
@@ -25,14 +26,14 @@ export const StyledButton = styled(Button)`
 export const StyledGroup = styled(Group)`
   width: 100vw;
   display: flex;
-  
+
   :not(label.ant-radio-button-wrapper-checked) {
     color: black;
   }
   .ant-radio-button-wrapper-checked {
     border-color: green !important;
   }
-  .ant-radio-button-wrapper-checked div {
+  .ant-radio-button-wrapper-checked span {
     color: green;
   }
   .ant-radio-button-wrapper-checked svg {
@@ -43,7 +44,7 @@ export const StyledGroup = styled(Group)`
   }
 `;
 
-export const TextContent = styled.div`
+export const TextContent = styled(Text)`
   line-height: 2.8rem;
   font-size: 1.4rem;
 `;

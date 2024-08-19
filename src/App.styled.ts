@@ -11,3 +11,11 @@ export const MainSection = styled.div`
   flex-direction: column;
 `;
 
+export const Header = styled.div`
+  background-color: white;
+  line-height: 5rem;
+  padding-left: 2.2rem;
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: "DM Serif Text";
+`;

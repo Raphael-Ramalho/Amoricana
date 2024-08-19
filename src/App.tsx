@@ -7,12 +7,12 @@ import {
   EditOutlined,
   EditFilled,
 } from "@ant-design/icons";
-import { MainSection } from "./App.styled";
+import { Header, MainSection } from "./App.styled";
 import { Carousel } from "./components/carousel/Carousel";
 import { Navigation } from "./components/navigation/Navigation";
 import { Calendar } from "./components/calendar/Calendar";
 import { TabContent } from "./App.type";
-import { CardArea } from "./components/card/Card";
+import { CardArea } from "./components/cardArea/CardArea";
 
 const boxes = (value: object) => (
   <div
@@ -46,6 +46,7 @@ function App() {
 
   return (
     <MainSection>
+      <Header>Republica Amoricana</Header>
       <Carousel
         activeTab={activeTab}
         setActiveTab={setActiveTab}

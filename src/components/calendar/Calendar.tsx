@@ -1,7 +1,13 @@
 import dayjs, { Dayjs } from "dayjs";
 import type { CellRenderInfo } from "rc-picker/lib/interface";
 
-import { CalendarArea, Circle, Container, DescriptionArea, StyledCalendar } from "./Calendar.styled";
+import {
+  CalendarArea,
+  Circle,
+  Container,
+  DescriptionArea,
+  StyledCalendar,
+} from "./Calendar.styled";
 
 export const Calendar = () => {
   const handleDay = (current: Dayjs, info: CellRenderInfo<Dayjs>) => {
