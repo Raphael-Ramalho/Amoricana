@@ -1,6 +1,8 @@
 export enum Frequency {
-  WEEKLY = "Semanalmente",
-  MONTHLY = "Uma vez ao mês",
+  UNIQUE = "Unica",
+  WEEKLY = "Semanal",
+  BIWEEKLY = "Quinzenal",
+  MONTHLY = "Mensal",
 }
 
 export type CardInfo = {

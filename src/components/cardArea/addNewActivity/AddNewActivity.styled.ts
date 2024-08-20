@@ -1,4 +1,4 @@
-import { Collapse } from "antd";
+import { Collapse, Form } from "antd";
 import styled from "styled-components";
 import { Text } from "../../generic/generic.style";
 import { RightCircleOutlined } from "@ant-design/icons";
@@ -23,4 +23,17 @@ export const NewActivity = styled(Text)`
 export const ArrowIcon = styled(RightCircleOutlined)<{ isActive?: boolean }>`
   font-size: 2rem;
   transform: rotate(${({ isActive }) => (isActive ? "90deg" : "0")});
+`;
+
+export const StyledForm = styled(Form)`
+  .ant-form-item {
+    margin-bottom: 1rem;
+  }
+`;
+
+export const HorizontalItem = styled(Form.Item)`
+  .ant-col {
+    max-width: fit-content !important;
+    padding: 0;
+  }
 `;

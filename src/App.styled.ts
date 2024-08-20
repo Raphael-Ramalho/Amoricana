@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-const image = require("./assets/images/roseBush4.jpg");
+const image = require("./assets/images/roseBush.jpg");
 
 export const MainSection = styled.div`
   background: url(${image}) no-repeat;
