@@ -1,9 +1,5 @@
-import {
-  Container,
-  AddButton,
-  NewActivity,
-  PlusIcon,
-} from "./CardArea.styled";
+import { Container } from "./CardArea.styled";
+import { AddNewActivity } from "./addNewActivity/AddNewActivity";
 import { Card } from "./card/Card";
 import { CardInfo, Frequency } from "./card/Card.type";
 
@@ -21,10 +17,7 @@ export const CardArea = () => {
 
   return (
     <Container>
-      <AddButton>
-        <NewActivity>Adicionar nova atividade</NewActivity>
-        <PlusIcon />
-      </AddButton>
+      <AddNewActivity />
 
       {cardsInfo.map((cardInfo) => (
         <Card key={cardInfo.id} cardInfo={cardInfo} />

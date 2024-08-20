@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { PlusCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
-import { CustomButton, RowFlexContainer, Text } from "../generic/generic.style";
+import { DeleteOutlined } from "@ant-design/icons";
+import { RowFlexContainer, Text } from "../generic/generic.style";
 import { Button, Modal } from "antd";
 
 export const CardContainer = styled.div`
@@ -24,23 +24,7 @@ export const FirstRow = styled.div`
   justify-content: space-between;
 `;
 
-export const NewActivity = styled(Text)`
-  font-weight: bold;
-`;
-
-export const AddButton = styled(CustomButton)`
-  background-color: white;
-  display: flex;
-  justify-content: space-between;
-  border-radius: 0.8rem;
-  padding: 1.8rem 1.4rem;
-`;
-
-export const PlusIcon = styled(PlusCircleOutlined)`
-  font-size: 2rem;
-`;
-
-export const RemoveIcon = styled(MinusCircleOutlined)`
+export const RemoveIcon = styled(DeleteOutlined)`
   font-size: 2rem;
   fill: black;
 `;
