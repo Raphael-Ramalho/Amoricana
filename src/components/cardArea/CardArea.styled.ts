@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DeleteOutlined } from "@ant-design/icons";
+import { MinusCircleOutlined } from "@ant-design/icons";
 import { RowFlexContainer, Text } from "../generic/generic.style";
 import { Button, Modal } from "antd";
 
@@ -24,7 +24,7 @@ export const FirstRow = styled.div`
   justify-content: space-between;
 `;
 
-export const RemoveIcon = styled(DeleteOutlined)`
+export const RemoveIcon = styled(MinusCircleOutlined)`
   font-size: 2rem;
   fill: black;
 `;

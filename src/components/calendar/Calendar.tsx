@@ -17,9 +17,9 @@ export const Calendar = () => {
 
     const hasActivity = true;
     return (
-      <Container isToday={isToday}>
+      <Container $istoday={isToday}>
         <div>{current.date()}</div>
-        <Circle isActive={hasActivity} />
+        <Circle $isActive={hasActivity} />
       </Container>
     );
   };

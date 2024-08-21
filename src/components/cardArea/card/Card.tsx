@@ -81,9 +81,9 @@ export const Card = ({ cardInfo }: CardProps) => {
       </CardContainer>
 
       <StyledModal
-        title={<Text>Remoção de atividade</Text>}
+        title={<Text>Deleção de atividade</Text>}
         open={isOpen}
-        onOk={() => {}}
+        onOk={() => setIsOpen(false)}
         onCancel={() => setIsOpen(false)}
         okText={<Text>Sim, desejo deletar</Text>}
         cancelText={<Text>Cancelar</Text>}

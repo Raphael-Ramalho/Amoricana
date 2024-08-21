@@ -7,25 +7,25 @@ export const StyledCalendar = styled(Calendar)`
   }
 `;
 
-export const Circle = styled.div<{ isActive?: boolean }>`
+export const Circle = styled.div<{ $isActive?: boolean }>`
   margin: 0 auto;
   width: 0.6rem;
   height: 0.6rem;
   background-color: red;
   border-radius: 100%;
 
-  ${({ isActive }) =>
-    !isActive &&
+  ${({ $isActive }) =>
+    !$isActive &&
     css`
       opacity: 0;
     `}
 `;
 
-export const Container = styled.div<{ isToday?: boolean }>`
+export const Container = styled.div<{ $istoday?: boolean }>`
   margin: 0 0.6rem;
   padding: 0.6rem 0;
-  ${({ isToday }) =>
-    isToday &&
+  ${({ $istoday }) =>
+    $istoday &&
     css`
       background-color: lightgreen;
     `}
