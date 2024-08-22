@@ -12,6 +12,7 @@ export const Carousel = ({
   activeTab,
   setActiveTab,
   contentArray,
+  selectedCard,
 }: GeneralProps) => {
   const carouselRef = createRef<CarouselRef>();
 
@@ -25,7 +26,7 @@ export const Carousel = ({
         ref={carouselRef}
         afterChange={setActiveTab}
         waitForAnimate
-        swipe={false}
+        swipe={!!selectedCard}
         infinite={false}
       >
         {contentArray.map(({ content, id }) => (

@@ -2,14 +2,24 @@ import dayjs, { Dayjs } from "dayjs";
 import type { CellRenderInfo } from "rc-picker/lib/interface";
 
 import {
+  ActivityCircle,
+  ActivityContainer,
   CalendarArea,
   Circle,
+  CircleContainer,
   Container,
   DescriptionArea,
   StyledCalendar,
+  Title,
 } from "./Calendar.styled";
+import { cardsInfoMock } from "../../mocks/mocks";
+import { Text } from "../generic/generic.style";
+import { useState } from "react";
+import { CardInfo } from "../cardArea/card/Card.type";
 
 export const Calendar = () => {
+  const [selectedDay, setSelectedDay] = useState<Dayjs>(dayjs());
+  const activitiesForSelectedDay: CardInfo[] = cardsInfoMock;
   const handleDay = (current: Dayjs, info: CellRenderInfo<Dayjs>) => {
     const todayDate = dayjs(info.today);
     const isToday =
@@ -31,9 +41,25 @@ export const Calendar = () => {
       <StyledCalendar
         fullscreen={false}
         mode="month"
+        onChange={(e) => setSelectedDay(e)}
         fullCellRender={handleDay}
       />
-      <DescriptionArea>ola</DescriptionArea>
+      <DescriptionArea>
+        <Title>Atividades para o dia {selectedDay.format("DD/MM")}</Title>
+        {activitiesForSelectedDay?.map(({ activityName, description }) => (
+          <ActivityContainer>
+            <CircleContainer>
+              <ActivityCircle $isactive={true} />
+            </CircleContainer>
+            <Text>
+              <strong>{activityName}</strong> {`(${description})`}
+            </Text>
+          </ActivityContainer>
+        ))}
+        {activitiesForSelectedDay.length === 0 && (
+          <Text>- Não há atividades cadastradas para esse dia</Text>
+        )}
+      </DescriptionArea>
     </CalendarArea>
   );
 };

@@ -7,15 +7,26 @@ import {
   EditOutlined,
   EditFilled,
 } from "@ant-design/icons";
-import { Header, MainSection } from "./App.styled";
+import {
+  BackButton,
+  BackIcon,
+  Header,
+  HeaderText,
+  MainSection,
+} from "./App.styled";
 import { Carousel } from "./components/carousel/Carousel";
 import { Navigation } from "./components/navigation/Navigation";
 import { Calendar } from "./components/calendar/Calendar";
 import { TabContent } from "./App.type";
 import { CardArea } from "./components/cardArea/CardArea";
 import { Markers } from "./components/markers/Markers";
+import { Login } from "./components/login/Login";
+import { Members } from "./enum/enums";
+import { CardInfo } from "./components/cardArea/card/Card.type";
 
 function App() {
+  const [currentUser, setCurrentUser] = useState<Members>();
+  const [selectedCard, setSelectedCard] = useState<CardInfo>();
   const [activeTab, setActiveTab] = useState<number>(0);
 
   const contentArray: TabContent[] = [
@@ -23,13 +34,20 @@ function App() {
       id: 0,
       name: "Atividades",
       icon: activeTab === 0 ? <DatabaseFilled /> : <DatabaseOutlined />,
-      content: <CardArea />,
+      content: (
+        <CardArea
+          setSelectedCard={setSelectedCard}
+          setActiveTab={setActiveTab}
+        />
+      ),
     },
     {
       id: 1,
       name: "Marcações",
       icon: activeTab === 1 ? <EditFilled /> : <EditOutlined />,
-      content: <Markers />,
+      content: (
+        <Markers currentUser={currentUser} selectedCard={selectedCard} />
+      ),
     },
     {
       id: 2,
@@ -41,18 +59,37 @@ function App() {
 
   return (
     <MainSection>
-      <Header>Republica Amoricana</Header>
-      <Carousel
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        contentArray={contentArray}
-      />
+      <Header>
+        <BackButton
+          type="link"
+          onClick={() => {
+            setCurrentUser(undefined);
+            setActiveTab(0);
+          }}
+        >
+          {currentUser && <BackIcon />}
+          <HeaderText>Republica Amoricana</HeaderText>
+        </BackButton>
+      </Header>
+      {!currentUser ? (
+        <Login setCurrentUser={setCurrentUser} />
+      ) : (
+        <>
+          <Carousel
+            activeTab={activeTab}
+            contentArray={contentArray}
+            selectedCard={selectedCard}
+            setActiveTab={setActiveTab}
+          />
 
-      <Navigation
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        contentArray={contentArray}
-      />
+          <Navigation
+            activeTab={activeTab}
+            contentArray={contentArray}
+            selectedCard={selectedCard}
+            setActiveTab={setActiveTab}
+          />
+        </>
+      )}
     </MainSection>
   );
 }

@@ -9,8 +9,9 @@ import { GeneralProps } from "../../App.type";
 
 export const Navigation = ({
   activeTab,
-  setActiveTab,
   contentArray,
+  selectedCard,
+  setActiveTab,
 }: GeneralProps) => {
   return (
     <Container>
@@ -20,7 +21,11 @@ export const Navigation = ({
         value={activeTab}
       >
         {contentArray.map(({ id, name, icon }) => (
-          <StyledButton key={id} value={id}>
+          <StyledButton
+            key={id}
+            value={id}
+            disabled={id === 1 && !selectedCard}
+          >
             <IconContent>{icon}</IconContent>
             <TextContent>{name.toUpperCase()}</TextContent>
           </StyledButton>

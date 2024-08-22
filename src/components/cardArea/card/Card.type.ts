@@ -12,4 +12,5 @@ export type CardInfo = {
 export type CardProps = {
   cardInfo: CardInfo;
   isOnMarkerTab?: boolean;
+  onClick?: () => void;
 };

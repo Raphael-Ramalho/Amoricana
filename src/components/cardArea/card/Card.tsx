@@ -14,7 +14,7 @@ import {
 } from "../CardArea.styled";
 import { CardProps } from "./Card.type";
 
-export const Card = ({ cardInfo, isOnMarkerTab }: CardProps) => {
+export const Card = ({ cardInfo, isOnMarkerTab, onClick }: CardProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { activityName, dayOfTheWeek, description, frequency, members } =
@@ -44,7 +44,10 @@ export const Card = ({ cardInfo, isOnMarkerTab }: CardProps) => {
   };
   return (
     <>
-      <CardContainer $isOnMarkerTab={!!isOnMarkerTab}>
+      <CardContainer
+        $isOnMarkerTab={!!isOnMarkerTab}
+        onClick={() => onClick?.()}
+      >
         <InnerContainer>
           <FirstRow>
             <div>
@@ -52,6 +55,7 @@ export const Card = ({ cardInfo, isOnMarkerTab }: CardProps) => {
                 <NameLabel>Atividade: </NameLabel>
                 <Text>{activityName}</Text>
               </FirstContainer>
+
               <div>
                 <Label>Frequência: </Label>
                 <Text>
@@ -77,6 +81,7 @@ export const Card = ({ cardInfo, isOnMarkerTab }: CardProps) => {
             <Label>Descrição: </Label>
             <Text>{description}</Text>
           </div>
+
           <RowFlexContainer>
             <Label>Ordem dos integrantes: </Label>
             <Order>{buildMembers(members)}</Order>

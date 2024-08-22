@@ -42,6 +42,14 @@ export const StyledGroup = styled(Group)`
   .ant-radio-button-wrapper-checked::before {
     background-color: green !important;
   }
+  .ant-radio-button-wrapper-disabled {
+    background-color: whitesmoke;
+  }
+  .ant-radio-button-wrapper-disabled span,
+  .ant-radio-button-wrapper-disabled svg {
+    color: grey;
+    fill: grey;
+  }
 `;
 
 export const TextContent = styled(Text)`

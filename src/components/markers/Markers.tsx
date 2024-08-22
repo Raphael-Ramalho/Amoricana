@@ -1,5 +1,6 @@
-import { Frequency, Members } from "../../enum/enums";
+import { Members } from "../../enum/enums";
 import { Card } from "../cardArea/card/Card";
+import { CardInfo } from "../cardArea/card/Card.type";
 import { RowFlexContainer, Text } from "../generic/generic.style";
 import { CellButton, Column, Container, Dash, Header } from "./Markers.styled";
 
@@ -11,9 +12,12 @@ type MarkerInfo = {
   }[];
 };
 
-export const Markers = () => {
-  const user = Members.CHARLES;
+type MarkersProps = {
+  currentUser?: Members;
+  selectedCard?: CardInfo;
+};
 
+export const Markers = ({ currentUser, selectedCard }: MarkersProps) => {
   const markersData: MarkerInfo[] = [
     {
       name: Members.CHARLES,
@@ -62,22 +66,15 @@ export const Markers = () => {
     },
   ];
 
-  const cardInfo = {
-    id: 0,
-    activityName: "Limpar banheiro",
-    dayOfTheWeek: 6,
-    frequency: Frequency.WEEKLY, // or month
-    members: ["Raphael", "Lucy", "Charles"],
-    description: "Limpar pia, vaso e chão",
-  };
+  if (!selectedCard) return <></>;
 
   return (
     <RowFlexContainer>
-      <Card key={cardInfo.id} cardInfo={cardInfo} isOnMarkerTab />
+      <Card key={selectedCard?.id} cardInfo={selectedCard} isOnMarkerTab />
 
       <Container>
         {markersData.map(({ name, content }) => (
-          <Column $isDisabled={user !== name}>
+          <Column $isDisabled={currentUser !== name}>
             <Header>{name}</Header>
             <RowFlexContainer>
               {content.map(({ date, isMarked }) => (

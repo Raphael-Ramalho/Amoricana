@@ -1,28 +1,32 @@
-import { Frequency } from "../../enum/enums";
+import { Dispatch, SetStateAction } from "react";
+import { cardsInfoMock } from "../../mocks/mocks";
 import { Container } from "./CardArea.styled";
 import { AddNewActivity } from "./addNewActivity/AddNewActivity";
 import { Card } from "./card/Card";
 import { CardInfo } from "./card/Card.type";
 
-export const CardArea = () => {
+type CardAreaProps = {
+  setSelectedCard: Dispatch<SetStateAction<CardInfo | undefined>>;
+  setActiveTab: Dispatch<SetStateAction<number>>;
+};
+
+export const CardArea = ({ setSelectedCard, setActiveTab }: CardAreaProps) => {
   // MOCK
-  const cardsInfo: CardInfo[] = [
-    {
-      id: 0,
-      activityName: "Limpar banheiro",
-      dayOfTheWeek: 6,
-      frequency: Frequency.WEEKLY,
-      members: ["Raphael", "Lucy", "Charles"],
-      description: "Limpar pia, vaso e chão",
-    },
-  ];
+  const cardsInfo: CardInfo[] = cardsInfoMock;
 
   return (
     <Container>
       <AddNewActivity />
 
       {cardsInfo.map((cardInfo) => (
-        <Card key={cardInfo.id} cardInfo={cardInfo} />
+        <Card
+          key={cardInfo.id}
+          cardInfo={cardInfo}
+          onClick={() => {
+            setSelectedCard(cardInfo);
+            setActiveTab(1);
+          }}
+        />
       ))}
     </Container>
   );

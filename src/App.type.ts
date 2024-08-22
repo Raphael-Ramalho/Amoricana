@@ -1,4 +1,5 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
+import { CardInfo } from "./components/cardArea/card/Card.type";
 
 export type TabContent = {
   id: number;
@@ -9,6 +10,7 @@ export type TabContent = {
 
 export type GeneralProps = {
   activeTab: number;
-  setActiveTab: Dispatch<SetStateAction<number>>;
   contentArray: TabContent[];
+  selectedCard?: CardInfo;
+  setActiveTab: Dispatch<SetStateAction<number>>;
 };
