@@ -15,7 +15,7 @@ export const Login = ({ setCurrentUser }: LoginProps) => {
       <Title>Faça login com um usuário:</Title>
       <Container>
         {members.map((member) => (
-          <Option onClick={() => setCurrentUser(member)}>
+          <Option key={member} onClick={() => setCurrentUser(member)}>
             <Text>{member}</Text>
           </Option>
         ))}

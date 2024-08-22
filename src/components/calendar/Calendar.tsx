@@ -1,5 +1,5 @@
 import dayjs, { Dayjs } from "dayjs";
-import type { CellRenderInfo } from "rc-picker/lib/interface";
+import type { CellRenderInfo } from "antd/node_modules/rc-picker/lib/interface";
 
 import {
   ActivityCircle,
