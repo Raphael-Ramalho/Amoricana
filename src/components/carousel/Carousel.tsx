@@ -25,7 +25,7 @@ export const Carousel = ({
         ref={carouselRef}
         afterChange={setActiveTab}
         waitForAnimate
-        swipe
+        swipe={false}
         infinite={false}
       >
         {contentArray.map(({ content, id }) => (

@@ -1,9 +1,4 @@
-export enum Frequency {
-  UNIQUE = "Unica",
-  WEEKLY = "Semanal",
-  BIWEEKLY = "Quinzenal",
-  MONTHLY = "Mensal",
-}
+import { Frequency } from "../../../enum/enums";
 
 export type CardInfo = {
   id: number;
@@ -16,4 +11,5 @@ export type CardInfo = {
 
 export type CardProps = {
   cardInfo: CardInfo;
+  isOnMarkerTab?: boolean;
 };

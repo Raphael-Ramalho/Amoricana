@@ -7,18 +7,12 @@ export const StyledCalendar = styled(Calendar)`
   }
 `;
 
-export const Circle = styled.div<{ $isActive?: boolean }>`
+export const Circle = styled.div<{ $isactive: boolean }>`
   margin: 0 auto;
   width: 0.6rem;
   height: 0.6rem;
-  background-color: red;
+  background-color: ${({ $isactive }) => ($isactive ? "red" : "inherit")};
   border-radius: 100%;
-
-  ${({ $isActive }) =>
-    !$isActive &&
-    css`
-      opacity: 0;
-    `}
 `;
 
 export const Container = styled.div<{ $istoday?: boolean }>`
@@ -42,4 +36,10 @@ export const DescriptionArea = styled.div`
   margin-top: 1.4rem;
   flex-grow: 1;
   border-radius: 0.8rem;
+`;
+
+export const CircleArea = styled.div`
+  display: flex;
+  min-height: 0.6rem;
+  justify-content: center;
 `;

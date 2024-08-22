@@ -2,9 +2,11 @@ import { useState } from "react";
 import { RowFlexContainer, Text } from "../../generic/generic.style";
 import {
   CardContainer,
+  FirstContainer,
   FirstRow,
   InnerContainer,
   Label,
+  NameLabel,
   Order,
   RemoveButton,
   RemoveIcon,
@@ -12,14 +14,14 @@ import {
 } from "../CardArea.styled";
 import { CardProps } from "./Card.type";
 
-export const Card = ({ cardInfo }: CardProps) => {
+export const Card = ({ cardInfo, isOnMarkerTab }: CardProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { activityName, dayOfTheWeek, description, frequency, members } =
     cardInfo;
 
   const buildMembers = (members: string[]) => {
-    return members.join(" -> ");
+    return members.join(" / ");
   };
 
   const buildWeekString = (day: number) => {
@@ -42,14 +44,14 @@ export const Card = ({ cardInfo }: CardProps) => {
   };
   return (
     <>
-      <CardContainer>
+      <CardContainer $isOnMarkerTab={!!isOnMarkerTab}>
         <InnerContainer>
           <FirstRow>
             <div>
-              <div>
-                <Label>Atividade: </Label>
+              <FirstContainer>
+                <NameLabel>Atividade: </NameLabel>
                 <Text>{activityName}</Text>
-              </div>
+              </FirstContainer>
               <div>
                 <Label>Frequência: </Label>
                 <Text>
@@ -58,15 +60,17 @@ export const Card = ({ cardInfo }: CardProps) => {
               </div>
             </div>
 
-            <RemoveButton
-              type={"link"}
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsOpen(true);
-              }}
-            >
-              <RemoveIcon />
-            </RemoveButton>
+            {!isOnMarkerTab && (
+              <RemoveButton
+                type={"link"}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsOpen(true);
+                }}
+              >
+                <RemoveIcon />
+              </RemoveButton>
+            )}
           </FirstRow>
 
           <div>

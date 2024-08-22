@@ -1,31 +1,34 @@
-import { DatePicker, Form, Input, Select } from "antd";
+import { Button, DatePicker, Form, Input, Select } from "antd";
 import {
   AddIcon,
+  ButtonContainer,
   HorizontalItem,
   NewActivity,
   StyledCollapse,
   StyledForm,
+  SubmitButton,
 } from "./AddNewActivity.styled";
-import { Frequency } from "../card/Card.type";
+import { Frequency, Members } from "../../../enum/enums";
+import { useState } from "react";
 
 enum FormFields {
   ACTIVITY = "activity",
   FREQUENCY = "frequency",
-  DATE_PICKER = "date_picker",
   DATE = "date",
   DESCRIPTION = "description",
   ORDER = "order",
 }
 
 export const AddNewActivity = () => {
+  const [isOpen, setIsOpen] = useState<string[] | string>([]);
   const [form] = Form.useForm();
 
   const members = [
-    { value: "charles", label: "Charles" },
-    { value: "lucy", label: "Lucy" },
-    { value: "raphael", label: "Raphael" },
-    { value: "vital", label: "Vital" },
-    { value: "vitoria", label: "Vitória" },
+    { value: Members.CHARLES, label: Members.CHARLES },
+    { value: Members.LUCY, label: Members.LUCY },
+    { value: Members.RAPHAEL, label: Members.RAPHAEL },
+    { value: Members.VITAL, label: Members.VITAL },
+    { value: Members.VITORIA, label: Members.VITORIA },
   ];
 
   const frequency = [
@@ -48,27 +51,20 @@ export const AddNewActivity = () => {
 
       <HorizontalItem
         layout="horizontal"
-        label="Dia:"
-        name={FormFields.DATE}
-        rules={[{ required: true }]}
-      >
-        <DatePicker
-          allowClear
-          placeholder=""
-          format="DD-MM-YYYY"
-        />
-      </HorizontalItem>
-
-      <HorizontalItem
-        layout="horizontal"
         label="Frequência:"
         name={FormFields.FREQUENCY}
         rules={[{ required: true }]}
       >
-        <Select
-          style={{ width: "15rem" }}
-          options={frequency}
-        />
+        <Select style={{ width: "15rem" }} options={frequency} />
+      </HorizontalItem>
+
+      <HorizontalItem
+        layout="horizontal"
+        label="Dia:"
+        name={FormFields.DATE}
+        rules={[{ required: true }]}
+      >
+        <DatePicker allowClear placeholder="" format="DD-MM-YYYY" />
       </HorizontalItem>
 
       <Form.Item
@@ -95,6 +91,17 @@ export const AddNewActivity = () => {
           options={members}
         />
       </Form.Item>
+      <ButtonContainer>
+        <Button
+          onClick={() => {
+            form.resetFields();
+            setIsOpen([]);
+          }}
+        >
+          Cancelar
+        </Button>
+        <SubmitButton>Criar Atividade</SubmitButton>
+      </ButtonContainer>
     </StyledForm>
   );
 
@@ -102,11 +109,13 @@ export const AddNewActivity = () => {
     <StyledCollapse
       size="small"
       destroyInactivePanel
+      activeKey={isOpen}
+      onChange={setIsOpen}
       expandIconPosition="end"
       expandIcon={({ isActive }) => <AddIcon $isactive={isActive} />}
       items={[
         {
-          key: "1",
+          key: "add-panel",
           label: <NewActivity>Adicionar nova atividade</NewActivity>,
           children: formComponent,
         },

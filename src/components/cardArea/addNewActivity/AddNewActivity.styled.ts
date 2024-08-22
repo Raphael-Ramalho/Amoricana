@@ -1,6 +1,6 @@
 import { Collapse, Form } from "antd";
 import styled from "styled-components";
-import { Text } from "../../generic/generic.style";
+import { CustomButton, Text } from "../../generic/generic.style";
 import { PlusCircleOutlined } from "@ant-design/icons";
 
 export const StyledCollapse = styled(Collapse)`
@@ -36,4 +36,17 @@ export const HorizontalItem = styled(Form.Item)`
     max-width: fit-content !important;
     padding: 0;
   }
+`;
+
+export const SubmitButton = styled(CustomButton)`
+  background-color: green;
+  color: white;
+  margin-left: 0.8rem;
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: end;
+  margin-top: 2.4rem;
+  width: 100%;
 `;

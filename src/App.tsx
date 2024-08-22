@@ -13,12 +13,7 @@ import { Navigation } from "./components/navigation/Navigation";
 import { Calendar } from "./components/calendar/Calendar";
 import { TabContent } from "./App.type";
 import { CardArea } from "./components/cardArea/CardArea";
-
-const boxes = (value: object) => (
-  <div
-    style={{ width: "300px", height: "300px", margin: "30px auto", ...value }}
-  />
-);
+import { Markers } from "./components/markers/Markers";
 
 function App() {
   const [activeTab, setActiveTab] = useState<number>(0);
@@ -34,7 +29,7 @@ function App() {
       id: 1,
       name: "Marcações",
       icon: activeTab === 1 ? <EditFilled /> : <EditOutlined />,
-      content: boxes({ backgroundColor: "yellow" }),
+      content: <Markers />,
     },
     {
       id: 2,

@@ -15,11 +15,13 @@ export const Calendar = () => {
     const isToday =
       todayDate.isSame(current, "day") && todayDate.isSame(current, "month");
 
-    const hasActivity = true;
+    // MOCK
+    const hasActivity = Math.floor(Math.random() * 10) % 2 === 0;
+
     return (
       <Container $istoday={isToday}>
         <div>{current.date()}</div>
-        <Circle $isActive={hasActivity} />
+        <Circle $isactive={hasActivity} />
       </Container>
     );
   };
