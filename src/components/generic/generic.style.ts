@@ -18,9 +18,5 @@ export const CustomButton = styled(Button)`
       color: green;
       border-color: green;
     }
-    &:visited {
-      color: black;
-      border-color: black;
-    }
   }
 `;

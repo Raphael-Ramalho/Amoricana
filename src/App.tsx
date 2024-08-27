@@ -23,6 +23,7 @@ import { Markers } from "./components/markers/Markers";
 import { Login } from "./components/login/Login";
 import { Members } from "./enum/enums";
 import { CardInfo } from "./components/cardArea/card/Card.type";
+import { InstallButton } from "./components/installButton/InstallButton";
 
 function App() {
   const [currentUser, setCurrentUser] = useState<Members>();
@@ -70,6 +71,8 @@ function App() {
           {currentUser && <BackIcon />}
           <HeaderText>Republica Amoricana</HeaderText>
         </BackButton>
+        
+        <InstallButton />
       </Header>
       {!currentUser ? (
         <Login setCurrentUser={setCurrentUser} />

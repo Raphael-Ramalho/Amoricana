@@ -17,6 +17,7 @@ export const MainSection = styled.div`
 export const Header = styled.div`
   align-items: center;
   background-color: white;
+  justify-content: space-between;
   display: flex;
   padding-left: 2.2rem;
   min-height: 5rem;
