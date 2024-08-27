@@ -12,5 +12,5 @@ export const StyledButton = styled(CustomButton)`
 
 export const DownloadIcon = styled(DownloadOutlined)`
   font-size: 1.4rem;
-  margin-right: 0.4rem;
+  margin-left: 0.4rem;
 `;

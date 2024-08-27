@@ -40,8 +40,8 @@ export const InstallButton = () => {
       onClick={onClick}
     >
       <Text>
+        Instalar
         <DownloadIcon />
-        Download
       </Text>
     </StyledButton>
   );
