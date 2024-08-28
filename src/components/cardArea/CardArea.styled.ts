@@ -23,7 +23,7 @@ export const Container = styled.div`
 export const FirstRow = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 export const FirstContainer = styled.div`
@@ -38,8 +38,9 @@ export const RemoveIcon = styled(MinusCircleOutlined)`
 `;
 
 export const RemoveButton = styled(Button)`
-  padding: 0;
+  align-items: flex-start;
   color: black;
+  padding: 0;
 `;
 
 export const Label = styled(Text)`

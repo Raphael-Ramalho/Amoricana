@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   CalendarOutlined,
   CalendarFilled,
@@ -22,13 +22,26 @@ import { CardArea } from "./components/cardArea/CardArea";
 import { Markers } from "./components/markers/Markers";
 import { Login } from "./components/login/Login";
 import { Members } from "./enum/enums";
-import { CardInfo } from "./components/cardArea/card/Card.type";
 import { InstallButton } from "./components/installButton/InstallButton";
+import { CardInfo } from "./types/types";
+import { getDocs } from "firebase/firestore";
+import { activitiesRef } from "./firebase";
 
 function App() {
   const [currentUser, setCurrentUser] = useState<Members>();
   const [selectedCard, setSelectedCard] = useState<CardInfo>();
   const [activeTab, setActiveTab] = useState<number>(0);
+  const [activityCards, setActivityCards] = useState<CardInfo[]>([]);
+
+  useEffect(() => {
+    const activities = async () => {
+      const data = await getDocs(activitiesRef);
+      setActivityCards(
+        data.docs.map((doc) => ({ ...doc.data(), id: doc.id } as CardInfo))
+      );
+    };
+    activities();
+  }, []);
 
   const contentArray: TabContent[] = [
     {
@@ -39,6 +52,8 @@ function App() {
         <CardArea
           setSelectedCard={setSelectedCard}
           setActiveTab={setActiveTab}
+          setActivityCards={setActivityCards}
+          activityCards={activityCards}
         />
       ),
     },
@@ -71,7 +86,7 @@ function App() {
           {currentUser && <BackIcon />}
           <HeaderText>Republica Amoricana</HeaderText>
         </BackButton>
-        
+
         <InstallButton />
       </Header>
       {!currentUser ? (

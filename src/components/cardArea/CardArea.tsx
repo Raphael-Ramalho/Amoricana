@@ -1,27 +1,31 @@
 import { Dispatch, SetStateAction } from "react";
-import { activitiesMock } from "../../mocks/mocks";
 import { Container } from "./CardArea.styled";
 import { AddNewActivity } from "./addNewActivity/AddNewActivity";
 import { Card } from "./card/Card";
-import { CardInfo } from "./card/Card.type";
+import { CardInfo } from "../../types/types";
 
 type CardAreaProps = {
   setSelectedCard: Dispatch<SetStateAction<CardInfo | undefined>>;
   setActiveTab: Dispatch<SetStateAction<number>>;
+  setActivityCards: Dispatch<SetStateAction<CardInfo[]>>;
+  activityCards: CardInfo[];
 };
 
-export const CardArea = ({ setSelectedCard, setActiveTab }: CardAreaProps) => {
-  // MOCK
-  const cardsInfo: CardInfo[] = activitiesMock;
-
+export const CardArea = ({
+  setSelectedCard,
+  setActiveTab,
+  setActivityCards,
+  activityCards,
+}: CardAreaProps) => {
   return (
     <Container>
-      <AddNewActivity />
+      <AddNewActivity setActivityCards={setActivityCards}/>
 
-      {cardsInfo.map((cardInfo) => (
+      {activityCards.map((cardInfo) => (
         <Card
-          key={cardInfo.id}
+          key={cardInfo.activityName}
           cardInfo={cardInfo}
+          setActivityCards={setActivityCards}
           onClick={() => {
             setSelectedCard(cardInfo);
             setActiveTab(1);

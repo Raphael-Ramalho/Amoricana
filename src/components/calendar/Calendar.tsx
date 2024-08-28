@@ -15,7 +15,7 @@ import {
 import { activitiesMock } from "../../mocks/mocks";
 import { Text } from "../generic/generic.style";
 import { useState } from "react";
-import { CardInfo } from "../cardArea/card/Card.type";
+import { CardInfo } from "../../types/types";
 
 export const Calendar = () => {
   const [selectedDay, setSelectedDay] = useState<Dayjs>(dayjs());

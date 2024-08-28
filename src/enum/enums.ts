@@ -12,3 +12,12 @@ export enum Frequency {
   BIWEEKLY = "Quinzenal",
   MONTHLY = "Mensal",
 }
+
+export enum FormFields {
+  ACTIVITY_NAME = "activityName",
+  DAY_OF_THE_WEEK = "dayOfTheWeek",
+  DESCRIPTION = "description",
+  FREQUENCY = "frequency",
+  MEMBERS = "members",
+  STARTING_DATE = "startingDate",
+}

@@ -1,5 +1,5 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
-import { CardInfo } from "./components/cardArea/card/Card.type";
+import { CardInfo } from "./types/types";
 
 export type TabContent = {
   id: number;

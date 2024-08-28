@@ -1,6 +1,6 @@
 import { Members } from "../../enum/enums";
+import { CardInfo } from "../../types/types";
 import { Card } from "../cardArea/card/Card";
-import { CardInfo } from "../cardArea/card/Card.type";
 import { RowFlexContainer, Text } from "../generic/generic.style";
 import { CellButton, Column, Container, Dash, Header } from "./Markers.styled";
 
@@ -70,7 +70,11 @@ export const Markers = ({ currentUser, selectedCard }: MarkersProps) => {
 
   return (
     <RowFlexContainer>
-      <Card key={selectedCard?.id} cardInfo={selectedCard} isOnMarkerTab />
+      <Card
+        key={selectedCard?.activityName}
+        cardInfo={selectedCard}
+        isOnMarkerTab
+      />
 
       <Container>
         {markersData.map(({ name, content }) => (

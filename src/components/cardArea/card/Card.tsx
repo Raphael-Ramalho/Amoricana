@@ -13,8 +13,15 @@ import {
   StyledModal,
 } from "../CardArea.styled";
 import { CardProps } from "./Card.type";
+import { buildWeekString } from "../../../helpers/helpers";
+import { removeActivity } from "../../../firebase";
 
-export const Card = ({ cardInfo, isOnMarkerTab, onClick }: CardProps) => {
+export const Card = ({
+  cardInfo,
+  isOnMarkerTab,
+  onClick,
+  setActivityCards,
+}: CardProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { activityName, dayOfTheWeek, description, frequency, members } =
@@ -24,24 +31,15 @@ export const Card = ({ cardInfo, isOnMarkerTab, onClick }: CardProps) => {
     return members.join(" / ");
   };
 
-  const buildWeekString = (day: number) => {
-    switch (day) {
-      case 0:
-        return "Domingo";
-      case 1:
-        return "Segunda-feira";
-      case 2:
-        return "Terça-feira";
-      case 3:
-        return "Quarta-feira";
-      case 4:
-        return "Quinta-feira";
-      case 5:
-        return "Sexta-feira";
-      default:
-        return "Sábado";
-    }
+  const handleRemove = async () => {
+    setIsOpen(false);
+    removeActivity(cardInfo.id);
+
+    setActivityCards?.((oldState) =>
+      oldState.filter((cardItem) => cardItem.id !== cardInfo.id)
+    );
   };
+
   return (
     <>
       <CardContainer
@@ -92,7 +90,7 @@ export const Card = ({ cardInfo, isOnMarkerTab, onClick }: CardProps) => {
       <StyledModal
         title={<Text>Deleção de atividade</Text>}
         open={isOpen}
-        onOk={() => setIsOpen(false)}
+        onOk={() => handleRemove()}
         onCancel={() => setIsOpen(false)}
         okText={<Text>Sim, desejo deletar</Text>}
         cancelText={<Text>Cancelar</Text>}

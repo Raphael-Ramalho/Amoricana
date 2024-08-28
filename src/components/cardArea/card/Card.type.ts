@@ -1,17 +1,9 @@
-import { Frequency } from "../../../enum/enums";
-
-export type CardInfo = {
-  id: number;
-  activityName: string;
-  dayOfTheWeek: number;
-  frequency: Frequency;
-  members: string[];
-  description: string;
-  startingDate: string;
-};
+import { Dispatch, SetStateAction } from "react";
+import { CardInfo } from "../../../types/types";
 
 export type CardProps = {
   cardInfo: CardInfo;
+  setActivityCards?: Dispatch<SetStateAction<CardInfo[]>>,
   isOnMarkerTab?: boolean;
   onClick?: () => void;
 };

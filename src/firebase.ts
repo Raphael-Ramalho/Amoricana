@@ -1,6 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, onValue, ref, set } from "firebase/database";
-import { CardInfo } from "./components/cardArea/card/Card.type";
+import { collection, deleteDoc, doc, getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_KEY,
@@ -14,24 +13,12 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
-export const db = getDatabase();
+export const db = getFirestore(app);
 
-// Handle DB
-export const createActivity = (activityInfo: CardInfo, id: string) => {
-  const reference = ref(db, "activities/" + id);
-  set(reference, activityInfo);
-};
+// References
+export const activitiesRef = collection(db, "activities");
 
-export const getActivityList = (): CardInfo[] => {
-  const data: CardInfo[] = [];
-  const activityData = ref(db, "activities/");
-
-  onValue(activityData, (snapshot) => {
-    snapshot.forEach((childSnapshot) => {
-      const childData = childSnapshot.val();
-      data.push(childData);
-    });
-  });
-
-  return data;
+export const removeActivity = async (id: string) => {
+  const activityDoc = doc(db, "activities", id);
+  await deleteDoc(activityDoc);
 };

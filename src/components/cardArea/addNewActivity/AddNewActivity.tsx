@@ -8,22 +8,30 @@ import {
   StyledForm,
   SubmitButton,
 } from "./AddNewActivity.styled";
-import { Frequency, Members } from "../../../enum/enums";
-import { useState } from "react";
+import { FormFields, Frequency, Members } from "../../../enum/enums";
+import { Dispatch, SetStateAction, useState } from "react";
+import { CardInfo } from "../../../types/types";
+import dayjs from "dayjs";
+import { activitiesRef } from "../../../firebase";
+import { addDoc } from "firebase/firestore";
 
-enum FormFields {
-  ACTIVITY = "activity",
-  FREQUENCY = "frequency",
-  DATE = "date",
-  DESCRIPTION = "description",
-  ORDER = "order",
-}
+type NewActivityProps = {
+  setActivityCards: Dispatch<SetStateAction<CardInfo[]>>;
+};
 
-export const AddNewActivity = () => {
+export const AddNewActivity = ({ setActivityCards }: NewActivityProps) => {
   const [isOpen, setIsOpen] = useState<string[] | string>([]);
   const [form] = Form.useForm();
 
-  const members = [
+  const activityName = Form.useWatch(FormFields.ACTIVITY_NAME, form);
+  const frequency = Form.useWatch(FormFields.FREQUENCY, form);
+  const members = Form.useWatch(FormFields.MEMBERS, form);
+  const startingDate = Form.useWatch(FormFields.STARTING_DATE, form);
+
+  const formIsValid =
+    activityName && frequency && !!members?.length && startingDate;
+
+  const membersArray = [
     { value: Members.CHARLES, label: Members.CHARLES },
     { value: Members.LUCY, label: Members.LUCY },
     { value: Members.RAPHAEL, label: Members.RAPHAEL },
@@ -31,19 +39,39 @@ export const AddNewActivity = () => {
     { value: Members.VITORIA, label: Members.VITORIA },
   ];
 
-  const frequency = [
+  const frequencyArray = [
     { value: Frequency.UNIQUE, label: Frequency.UNIQUE },
     { value: Frequency.WEEKLY, label: Frequency.WEEKLY },
     { value: Frequency.BIWEEKLY, label: Frequency.BIWEEKLY },
     { value: Frequency.MONTHLY, label: Frequency.MONTHLY },
   ];
 
+  const handleSubmit = async () => {
+    const formValues = form.getFieldsValue() as CardInfo;
+    const formattedValues: CardInfo = {
+      ...formValues,
+      dayOfTheWeek: dayjs(formValues.startingDate).day(),
+      startingDate: dayjs(formValues.startingDate).format("DD-MM-YYYY"),
+    };
+
+    await addDoc(activitiesRef, formattedValues)
+      .then((doc) => {
+        setActivityCards((oldValues) => [
+          ...oldValues,
+          { ...formattedValues, id: doc.id },
+        ]);
+
+        setIsOpen([]);
+      })
+      .catch((error) => console.log(error));
+  };
+
   const formComponent = (
     <StyledForm name="add-activity-form" layout="vertical" form={form}>
       <Form.Item
         layout="vertical"
         label="Nome da Atividade:"
-        name={FormFields.ACTIVITY}
+        name={FormFields.ACTIVITY_NAME}
         rules={[{ required: true, message: "Preencha o nome da atividade" }]}
       >
         <Input />
@@ -55,13 +83,13 @@ export const AddNewActivity = () => {
         name={FormFields.FREQUENCY}
         rules={[{ required: true }]}
       >
-        <Select style={{ width: "15rem" }} options={frequency} />
+        <Select style={{ width: "15rem" }} options={frequencyArray} />
       </HorizontalItem>
 
       <HorizontalItem
         layout="horizontal"
         label="Dia:"
-        name={FormFields.DATE}
+        name={FormFields.STARTING_DATE}
         rules={[{ required: true }]}
       >
         <DatePicker allowClear placeholder="" format="DD-MM-YYYY" />
@@ -78,7 +106,7 @@ export const AddNewActivity = () => {
       <Form.Item
         layout="vertical"
         label={`Responsáveis:`}
-        name={FormFields.ORDER}
+        name={FormFields.MEMBERS}
         rules={[
           { required: true, message: "Preencha a ordem dos participantes" },
         ]}
@@ -87,8 +115,7 @@ export const AddNewActivity = () => {
           mode="multiple"
           allowClear
           placeholder="Selecione em ordem"
-          onChange={() => {}}
-          options={members}
+          options={membersArray}
         />
       </Form.Item>
       <ButtonContainer>
@@ -100,7 +127,9 @@ export const AddNewActivity = () => {
         >
           Cancelar
         </Button>
-        <SubmitButton>Criar Atividade</SubmitButton>
+        <SubmitButton disabled={!formIsValid} onClick={handleSubmit}>
+          Criar Atividade
+        </SubmitButton>
       </ButtonContainer>
     </StyledForm>
   );
