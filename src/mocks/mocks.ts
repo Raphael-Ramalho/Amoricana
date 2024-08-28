@@ -1,6 +1,6 @@
 import { Frequency } from "../enum/enums";
 
-export const cardsInfoMock = [
+export const activitiesMock = [
   {
     id: 0,
     activityName: "Limpar banheiro",

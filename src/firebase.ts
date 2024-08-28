@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getDatabase, ref } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_KEY,
@@ -7,8 +8,10 @@ const firebaseConfig = {
   storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_FIREBASE_SENDER_ID,
   appId: process.env.REACT_APP_MESSAGING_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASURAMENT_ID
+  measurementId: process.env.REACT_APP_FIREBASE_MEASURAMENT_ID,
 };
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
+export const db = getDatabase()
+const reference = ref(db, )

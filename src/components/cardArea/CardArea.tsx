@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { cardsInfoMock } from "../../mocks/mocks";
+import { activitiesMock } from "../../mocks/mocks";
 import { Container } from "./CardArea.styled";
 import { AddNewActivity } from "./addNewActivity/AddNewActivity";
 import { Card } from "./card/Card";
@@ -12,7 +12,7 @@ type CardAreaProps = {
 
 export const CardArea = ({ setSelectedCard, setActiveTab }: CardAreaProps) => {
   // MOCK
-  const cardsInfo: CardInfo[] = cardsInfoMock;
+  const cardsInfo: CardInfo[] = activitiesMock;
 
   return (
     <Container>

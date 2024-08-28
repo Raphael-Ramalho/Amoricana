@@ -12,14 +12,14 @@ import {
   StyledCalendar,
   Title,
 } from "./Calendar.styled";
-import { cardsInfoMock } from "../../mocks/mocks";
+import { activitiesMock } from "../../mocks/mocks";
 import { Text } from "../generic/generic.style";
 import { useState } from "react";
 import { CardInfo } from "../cardArea/card/Card.type";
 
 export const Calendar = () => {
   const [selectedDay, setSelectedDay] = useState<Dayjs>(dayjs());
-  const activitiesForSelectedDay: CardInfo[] = cardsInfoMock;
+  const activitiesForSelectedDay: CardInfo[] = activitiesMock;
   const handleDay = (current: Dayjs, info: CellRenderInfo<Dayjs>) => {
     const todayDate = dayjs(info.today);
     const isToday =
