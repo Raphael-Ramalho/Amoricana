@@ -1,20 +1,23 @@
+import { CardInfo } from "../components/cardArea/card/Card.type";
 import { Frequency } from "../enum/enums";
 
-export const activitiesMock = [
+export const activitiesMock: CardInfo[] = [
   {
-    id: 0,
     activityName: "Limpar banheiro",
     dayOfTheWeek: 5,
-    frequency: Frequency.WEEKLY, // or month
-    members: ["Raphael", "Lucy", "Charles"],
     description: "Limpar pia, vaso e chão",
+    frequency: Frequency.WEEKLY,
+    id: 0,
+    members: ["Raphael", "Lucy", "Charles"],
+    startingDate: "08/09",
   },
   {
-    id: 1,
     activityName: "Receber Marly",
     dayOfTheWeek: 6,
-    frequency: Frequency.MONTHLY, // or month
-    members: ["Raphael", "Lucy", "Charles", "Vitória", "Vital"],
     description: "Limpar panos no dia anterior",
+    frequency: Frequency.MONTHLY,
+    id: 1,
+    members: ["Raphael", "Lucy", "Charles", "Vitória", "Vital"],
+    startingDate: "08/09",
   },
 ];

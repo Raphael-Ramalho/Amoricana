@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref } from "firebase/database";
+import { getDatabase, onValue, ref, set } from "firebase/database";
+import { CardInfo } from "./components/cardArea/card/Card.type";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_KEY,
@@ -13,5 +14,24 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
-export const db = getDatabase()
-const reference = ref(db, )
+export const db = getDatabase();
+
+// Handle DB
+export const createActivity = (activityInfo: CardInfo, id: string) => {
+  const reference = ref(db, "activities/" + id);
+  set(reference, activityInfo);
+};
+
+export const getActivityList = (): CardInfo[] => {
+  const data: CardInfo[] = [];
+  const activityData = ref(db, "activities/");
+
+  onValue(activityData, (snapshot) => {
+    snapshot.forEach((childSnapshot) => {
+      const childData = childSnapshot.val();
+      data.push(childData);
+    });
+  });
+
+  return data;
+};

@@ -7,6 +7,7 @@ export type CardInfo = {
   frequency: Frequency;
   members: string[];
   description: string;
+  startingDate: string;
 };
 
 export type CardProps = {
