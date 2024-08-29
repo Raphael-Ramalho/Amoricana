@@ -15,10 +15,14 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 
+const availableCollections = ["activities", "activities-dev"];
+
+export const collectionKey = availableCollections[1]
+
 // References
-export const activitiesRef = collection(db, "activities");
+export const activitiesRef = collection(db, collectionKey);
 
 export const removeActivity = async (id: string) => {
-  const activityDoc = doc(db, "activities", id);
+  const activityDoc = doc(db, collectionKey, id);
   await deleteDoc(activityDoc);
 };

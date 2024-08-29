@@ -10,8 +10,7 @@ import {
 } from "./AddNewActivity.styled";
 import { FormFields, Frequency, Members } from "../../../enum/enums";
 import { Dispatch, SetStateAction, useState } from "react";
-import { CardInfo } from "../../../types/types";
-import dayjs from "dayjs";
+import { ActivityInfo, CardInfo, FormInfo } from "../../../types/types";
 import { activitiesRef } from "../../../firebase";
 import { addDoc } from "firebase/firestore";
 
@@ -47,11 +46,24 @@ export const AddNewActivity = ({ setActivityCards }: NewActivityProps) => {
   ];
 
   const handleSubmit = async () => {
-    const formValues = form.getFieldsValue() as CardInfo;
-    const formattedValues: CardInfo = {
-      ...formValues,
-      dayOfTheWeek: dayjs(formValues.startingDate).day(),
-      startingDate: dayjs(formValues.startingDate).format("DD-MM-YYYY"),
+    const formValues = form.getFieldsValue() as FormInfo;
+
+    const membersInfo = formValues.members.map((member, index) => {
+      const startingDate = formValues.startingDate.add(index * 7, "day");
+      return {
+        member,
+        startingDate: startingDate.toString(),
+        markedDates: [],
+      };
+    });
+
+    const formattedValues: ActivityInfo = {
+      activityName: formValues.activityName,
+      dayOfTheWeek: formValues.startingDate.day(),
+      description: formValues.description,
+      frequency: formValues.frequency,
+      membersInfo,
+      startingDate: formValues.startingDate.toString(),
     };
 
     await addDoc(activitiesRef, formattedValues)
@@ -62,8 +74,9 @@ export const AddNewActivity = ({ setActivityCards }: NewActivityProps) => {
         ]);
 
         setIsOpen([]);
+        form.resetFields();
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log("error:", error));
   };
 
   const formComponent = (

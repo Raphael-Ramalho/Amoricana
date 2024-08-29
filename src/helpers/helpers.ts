@@ -1,3 +1,6 @@
+import { Dayjs } from "dayjs";
+import { Frequency } from "../enum/enums";
+
 export const buildWeekString = (day: number) => {
   switch (day) {
     case 0:
@@ -14,5 +17,22 @@ export const buildWeekString = (day: number) => {
       return "Sexta-feira";
     default:
       return "Sábado";
+  }
+};
+
+export const formatDate = (date: Dayjs) => {
+  return date.format("DD-MM-YYYY");
+};
+
+export const getMultiplier = (membersQty: number, frequency: Frequency) => {
+  switch (frequency) {
+    case Frequency.UNIQUE:
+      return membersQty;
+    case Frequency.WEEKLY:
+      return 7 * membersQty;
+    case Frequency.BIWEEKLY:
+      return 7 * membersQty * 2;
+    default:
+      return 7 * membersQty * 4;
   }
 };

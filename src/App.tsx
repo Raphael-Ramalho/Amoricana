@@ -37,7 +37,9 @@ function App() {
     const activities = async () => {
       const data = await getDocs(activitiesRef);
       setActivityCards(
-        data.docs.map((doc) => ({ ...doc.data(), id: doc.id } as CardInfo))
+        data.docs.map((doc) => {
+          return { ...doc.data(), id: doc.id } as CardInfo;
+        })
       );
     };
     activities();

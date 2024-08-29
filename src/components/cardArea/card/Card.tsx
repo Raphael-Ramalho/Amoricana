@@ -24,8 +24,15 @@ export const Card = ({
 }: CardProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { activityName, dayOfTheWeek, description, frequency, members } =
-    cardInfo;
+  const {
+    activityName,
+    dayOfTheWeek,
+    description,
+    frequency,
+    membersInfo,
+  } = cardInfo;
+
+  const members = membersInfo.map((obj) => obj.member);
 
   const buildMembers = (members: string[]) => {
     return members.join(" / ");
