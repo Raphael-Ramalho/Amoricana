@@ -1,5 +1,5 @@
-import dayjs, { Dayjs } from "dayjs";
-import { Frequency, Members } from "../../enum/enums";
+import dayjs from "dayjs";
+import {  Members } from "../../enum/enums";
 import { CardInfo } from "../../types/types";
 import { Card } from "../cardArea/card/Card";
 import { RowFlexContainer, Text } from "../generic/generic.style";
@@ -19,54 +19,6 @@ type MarkersProps = {
   selectedCard?: CardInfo;
 };
 
-const markersData: MarkerInfo[] = [
-  {
-    name: Members.CHARLES,
-    content: [
-      { date: "01/02", isMarked: true },
-      { date: "04/02", isMarked: false },
-      { date: "07/02", isMarked: false },
-      { date: "07/02", isMarked: false },
-    ],
-  },
-  {
-    name: Members.LUCY,
-    content: [
-      { date: "01/02", isMarked: true },
-      { date: "01/02", isMarked: true },
-      { date: "01/02", isMarked: true },
-      { date: "01/02", isMarked: true },
-    ],
-  },
-  {
-    name: Members.RAPHAEL,
-    content: [
-      { date: "01/02", isMarked: false },
-      { date: "01/02", isMarked: false },
-      { date: "01/02", isMarked: false },
-      { date: "01/02", isMarked: false },
-    ],
-  },
-  {
-    name: Members.VITAL,
-    content: [
-      { date: "01/02", isMarked: true },
-      { date: "01/02", isMarked: true },
-      { date: "01/02", isMarked: false },
-      { date: "01/02", isMarked: false },
-    ],
-  },
-  {
-    name: Members.VITORIA,
-    content: [
-      { date: "01/02", isMarked: true },
-      { date: "01/02", isMarked: true },
-      { date: "01/02", isMarked: true },
-      { date: "01/02", isMarked: true },
-    ],
-  },
-];
-
 export const Markers = ({ currentUser, selectedCard }: MarkersProps) => {
   if (!selectedCard) return <></>;
 
@@ -82,12 +34,14 @@ export const Markers = ({ currentUser, selectedCard }: MarkersProps) => {
 
     const multiplier = getMultiplier(membersQty, selectedCard.frequency);
 
-    const data = selectedCard.membersInfo?.map((info) => {
+    const data: MarkerInfo[] = selectedCard.membersInfo?.map((info) => {
       const buildDates = (date: string) => {
         const startingDay = dayjs(date);
 
         const buildDay = (factor: number) =>
-          startingDay.add(multiplier * factor + dayOffSet, "day").format("DD/MM");
+          startingDay
+            .add(multiplier * factor + dayOffSet, "day")
+            .format("DD/MM");
 
         const content = [
           { date: buildDay(-1), isMarked: false },
@@ -107,7 +61,7 @@ export const Markers = ({ currentUser, selectedCard }: MarkersProps) => {
     return data;
   };
 
-const data = markersData()
+  const data = markersData();
   return (
     <RowFlexContainer>
       <Card
