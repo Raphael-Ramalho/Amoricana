@@ -29,9 +29,11 @@ import { activitiesRef } from "./firebase";
 
 function App() {
   const [currentUser, setCurrentUser] = useState<Members>();
-  const [selectedCard, setSelectedCard] = useState<CardInfo>();
+  const [selectedCardId, setSelectedCardId] = useState<string>();
   const [activeTab, setActiveTab] = useState<number>(0);
   const [activityCards, setActivityCards] = useState<CardInfo[]>([]);
+
+  const selectedCard = activityCards.find((card) => card.id === selectedCardId);
 
   useEffect(() => {
     const activities = async () => {
@@ -52,7 +54,7 @@ function App() {
       icon: activeTab === 0 ? <DatabaseFilled /> : <DatabaseOutlined />,
       content: (
         <CardArea
-          setSelectedCard={setSelectedCard}
+          setSelectedCardId={setSelectedCardId}
           setActiveTab={setActiveTab}
           setActivityCards={setActivityCards}
           activityCards={activityCards}

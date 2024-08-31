@@ -5,21 +5,21 @@ import { Card } from "./card/Card";
 import { CardInfo } from "../../types/types";
 
 type CardAreaProps = {
-  setSelectedCard: Dispatch<SetStateAction<CardInfo | undefined>>;
+  setSelectedCardId: Dispatch<SetStateAction<string | undefined>>;
   setActiveTab: Dispatch<SetStateAction<number>>;
   setActivityCards: Dispatch<SetStateAction<CardInfo[]>>;
   activityCards: CardInfo[];
 };
 
 export const CardArea = ({
-  setSelectedCard,
+  setSelectedCardId,
   setActiveTab,
   setActivityCards,
   activityCards,
 }: CardAreaProps) => {
   return (
     <Container>
-      <AddNewActivity setActivityCards={setActivityCards}/>
+      <AddNewActivity setActivityCards={setActivityCards} />
 
       {activityCards.map((cardInfo) => (
         <Card
@@ -27,7 +27,7 @@ export const CardArea = ({
           cardInfo={cardInfo}
           setActivityCards={setActivityCards}
           onClick={() => {
-            setSelectedCard(cardInfo);
+            setSelectedCardId(cardInfo.id);
             setActiveTab(1);
           }}
         />

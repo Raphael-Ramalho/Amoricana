@@ -53,7 +53,6 @@ export const AddNewActivity = ({ setActivityCards }: NewActivityProps) => {
       return {
         member,
         startingDate: startingDate.toString(),
-        markedDates: [],
       };
     });
 
@@ -62,6 +61,7 @@ export const AddNewActivity = ({ setActivityCards }: NewActivityProps) => {
       dayOfTheWeek: formValues.startingDate.day(),
       description: formValues.description,
       frequency: formValues.frequency,
+      markedDates: [],
       membersInfo,
       startingDate: formValues.startingDate.toString(),
     };

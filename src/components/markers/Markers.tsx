@@ -1,10 +1,11 @@
 import dayjs from "dayjs";
-import {  Members } from "../../enum/enums";
+import { Members } from "../../enum/enums";
 import { CardInfo } from "../../types/types";
 import { Card } from "../cardArea/card/Card";
 import { RowFlexContainer, Text } from "../generic/generic.style";
 import { CellButton, Column, Container, Dash, Header } from "./Markers.styled";
 import { getMultiplier } from "../../helpers/helpers";
+import { updateActivity } from "../../firebase";
 
 type MarkerInfo = {
   name: Members;
@@ -22,17 +23,20 @@ type MarkersProps = {
 export const Markers = ({ currentUser, selectedCard }: MarkersProps) => {
   if (!selectedCard) return <></>;
 
+  const handleClick = async (date: string, isMarked: boolean) => {
+    const updatedMarkedDates =  isMarked ? selectedCard.markedDates
+    // await updateActivity(selectedCard.id, )
+  };
+
   const markersData = () => {
     const currentWeekDayDate = dayjs().day(selectedCard.dayOfTheWeek);
+    const membersQty = selectedCard.membersInfo.length;
+    const multiplier = getMultiplier(membersQty, selectedCard.frequency);
 
     const dayOffSet = dayjs(currentWeekDayDate).diff(
       selectedCard.startingDate,
       "day"
     );
-
-    const membersQty = selectedCard.membersInfo.length;
-
-    const multiplier = getMultiplier(membersQty, selectedCard.frequency);
 
     const data: MarkerInfo[] = selectedCard.membersInfo?.map((info) => {
       const buildDates = (date: string) => {
@@ -43,14 +47,19 @@ export const Markers = ({ currentUser, selectedCard }: MarkersProps) => {
             .add(multiplier * factor + dayOffSet, "day")
             .format("DD/MM");
 
-        const content = [
-          { date: buildDay(-1), isMarked: false },
-          { date: buildDay(0), isMarked: false },
-          { date: buildDay(1), isMarked: false },
-          { date: buildDay(2), isMarked: false },
-        ];
+        const dateArray = [buildDay(-1), buildDay(0), buildDay(1), buildDay(2)];
+        const markedDates = new Set([
+          "07/08",
+          "14/08",
+          "21/08",
+          "28/08",
+          "11/09",
+        ]);
 
-        return content;
+        return dateArray.map((date) => ({
+          date,
+          isMarked: markedDates.has(date),
+        }));
       };
 
       const datesContent = buildDates(info.startingDate);
@@ -76,7 +85,12 @@ export const Markers = ({ currentUser, selectedCard }: MarkersProps) => {
             <Header>{name}</Header>
             <RowFlexContainer>
               {content.map(({ date, isMarked }, index) => (
-                <CellButton key={index} type="link">
+                <CellButton
+                  key={index}
+                  type="link"
+                  disabled={currentUser !== name}
+                  onClick={() => handleClick(date, isMarked)}
+                >
                   <Text>{date}</Text>
                   {isMarked && <Dash />}
                 </CellButton>

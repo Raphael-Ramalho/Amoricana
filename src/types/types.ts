@@ -8,14 +8,16 @@ export type CardInfo = {
   description?: string;
   frequency: Frequency;
   startingDate: string;
+  markedDates: Set<string>;
   membersInfo: {
     member: Members;
     startingDate: string;
-    markedDates: string[];
   }[];
 };
 
-export type ActivityInfo = Omit<CardInfo, "id">;
+export type ActivityInfo = Omit<CardInfo, "id" | "markedDates"> & {
+  markedDates: string[];
+};
 
 export type FormInfo = {
   [FormFields.ACTIVITY_NAME]: string;

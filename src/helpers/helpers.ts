@@ -1,4 +1,4 @@
-import { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import { Frequency } from "../enum/enums";
 
 export const buildWeekString = (day: number) => {
@@ -20,8 +20,8 @@ export const buildWeekString = (day: number) => {
   }
 };
 
-export const formatDate = (date: Dayjs) => {
-  return date.format("DD-MM-YYYY");
+export const formatDate = (date: string) => {
+  return dayjs(date).format("DD/MM");
 };
 
 export const getMultiplier = (membersQty: number, frequency: Frequency) => {

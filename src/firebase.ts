@@ -1,5 +1,12 @@
 import { initializeApp } from "firebase/app";
-import { collection, deleteDoc, doc, getFirestore } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getFirestore,
+  updateDoc,
+} from "firebase/firestore";
+import { ActivityInfo } from "./types/types";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_KEY,
@@ -17,7 +24,7 @@ export const db = getFirestore(app);
 
 const availableCollections = ["activities", "activities-dev"];
 
-export const collectionKey = availableCollections[1]
+export const collectionKey = availableCollections[1];
 
 // References
 export const activitiesRef = collection(db, collectionKey);
@@ -25,4 +32,13 @@ export const activitiesRef = collection(db, collectionKey);
 export const removeActivity = async (id: string) => {
   const activityDoc = doc(db, collectionKey, id);
   await deleteDoc(activityDoc);
+};
+
+export const updateActivity = async (
+  id: string,
+  updatedFields: Partial<ActivityInfo>
+) => {
+  const activityDoc = doc(db, collectionKey, id);
+
+  await updateDoc(activityDoc, updatedFields);
 };
