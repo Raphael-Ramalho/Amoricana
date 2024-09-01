@@ -59,7 +59,7 @@ export const AddNewActivity = ({ setActivityCards }: NewActivityProps) => {
     const formattedValues: ActivityInfo = {
       activityName: formValues.activityName,
       dayOfTheWeek: formValues.startingDate.day(),
-      description: formValues.description,
+      description: formValues.description || '',
       frequency: formValues.frequency,
       markedDates: [],
       membersInfo,
@@ -70,7 +70,7 @@ export const AddNewActivity = ({ setActivityCards }: NewActivityProps) => {
       .then((doc) => {
         setActivityCards((oldValues) => [
           ...oldValues,
-          { ...formattedValues, id: doc.id },
+          { ...formattedValues, id: doc.id, markedDates: new Set() },
         ]);
 
         setIsOpen([]);

@@ -23,7 +23,7 @@ import { Markers } from "./components/markers/Markers";
 import { Login } from "./components/login/Login";
 import { Members } from "./enum/enums";
 import { InstallButton } from "./components/installButton/InstallButton";
-import { CardInfo } from "./types/types";
+import { ActivityInfo, CardInfo } from "./types/types";
 import { getDocs } from "firebase/firestore";
 import { activitiesRef } from "./firebase";
 
@@ -40,7 +40,12 @@ function App() {
       const data = await getDocs(activitiesRef);
       setActivityCards(
         data.docs.map((doc) => {
-          return { ...doc.data(), id: doc.id } as CardInfo;
+          const cardInfo = doc.data() as ActivityInfo;
+          return {
+            ...cardInfo,
+            id: doc.id,
+            markedDates: new Set(cardInfo.markedDates),
+          };
         })
       );
     };
@@ -66,7 +71,11 @@ function App() {
       name: "Marcações",
       icon: activeTab === 1 ? <EditFilled /> : <EditOutlined />,
       content: (
-        <Markers currentUser={currentUser} selectedCard={selectedCard} />
+        <Markers
+          currentUser={currentUser}
+          selectedCard={selectedCard}
+          setActivityCards={setActivityCards}
+        />
       ),
     },
     {
