@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
-import { Frequency } from "../enum/enums";
+import { Frequency, Members } from "../enum/enums";
+import { CardInfo, MarkerInfo } from "../types/types";
 
 export const buildWeekString = (day: number) => {
   switch (day) {
@@ -35,4 +36,53 @@ export const getMultiplier = (membersQty: number, frequency: Frequency) => {
     default:
       return 7 * membersQty * 4;
   }
+};
+
+export const buildMarkerDataMultiplus = (selectedCard: CardInfo) => {
+  const { dayOfTheWeek, frequency, markedDates, membersInfo, startingDate } =
+    selectedCard;
+
+  const currentWeekDayDate = dayjs().day(dayOfTheWeek);
+  const membersQty = membersInfo.length;
+  const multiplier = getMultiplier(membersQty, frequency);
+
+  const dayOffSet = dayjs(currentWeekDayDate).diff(startingDate, "day");
+
+  const markerData: MarkerInfo[] = membersInfo?.map((info) => {
+    const buildDates = (date: string) => {
+      const startingDay = dayjs(date);
+
+      const buildDay = (factor: number) =>
+        startingDay.add(multiplier * factor + dayOffSet, "day").format("DD/MM");
+
+      const dateArray = [buildDay(-1), buildDay(0), buildDay(1), buildDay(2)];
+
+      return dateArray.map((date) => ({
+        date,
+        isMarked: markedDates.has(date),
+      }));
+    };
+
+    const datesContent = buildDates(info.startingDate);
+
+    return { name: info.member, content: datesContent };
+  });
+
+  return markerData;
+};
+
+export const buildMarkerDataUnique = (selectedCard: CardInfo): MarkerInfo[] => {
+  const { markedDates, startingDate } = selectedCard;
+
+  return [
+    {
+      name: "" as Members,
+      content: [
+        {
+          date: formatDate(startingDate),
+          isMarked: !!markedDates.size,
+        },
+      ],
+    },
+  ];
 };

@@ -27,3 +27,11 @@ export type FormInfo = {
   [FormFields.MEMBERS]: Members[];
   [FormFields.STARTING_DATE]: Dayjs;
 };
+
+export type MarkerInfo = {
+  name: Members;
+  content: {
+    date: string;
+    isMarked: boolean;
+  }[];
+};

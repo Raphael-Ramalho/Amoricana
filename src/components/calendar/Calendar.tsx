@@ -40,7 +40,7 @@ export const Calendar = () => {
       <StyledCalendar
         fullscreen={false}
         mode="month"
-        onChange={(e) => setSelectedDay(e)}
+        onChange={setSelectedDay}
         fullCellRender={handleDay}
       />
       <DescriptionArea>

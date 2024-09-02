@@ -1,20 +1,14 @@
-import dayjs from "dayjs";
 import { Frequency, Members } from "../../enum/enums";
 import { ActivityInfo, CardInfo } from "../../types/types";
 import { Card } from "../cardArea/card/Card";
 import { RowFlexContainer, Text } from "../generic/generic.style";
 import { CellButton, Column, Container, Dash, Header } from "./Markers.styled";
-import { formatDate, getMultiplier } from "../../helpers/helpers";
+import {
+  buildMarkerDataMultiplus,
+  buildMarkerDataUnique,
+} from "../../helpers/helpers";
 import { updateActivity } from "../../firebase";
 import { Dispatch, SetStateAction } from "react";
-
-type MarkerInfo = {
-  name: Members;
-  content: {
-    date: string;
-    isMarked: boolean;
-  }[];
-};
 
 type MarkersProps = {
   currentUser?: Members;
@@ -29,8 +23,7 @@ export const Markers = ({
 }: MarkersProps) => {
   if (!selectedCard) return <></>;
 
-  const { dayOfTheWeek, frequency, markedDates, membersInfo, startingDate } =
-    selectedCard;
+  const { frequency, markedDates } = selectedCard;
 
   const handleClick = async (date: string) => {
     const newMarkedDates = new Set(markedDates);
@@ -58,55 +51,13 @@ export const Markers = ({
       .catch((error) => console.log("error:", error));
   };
 
-  const buildMarkerDataMultiplus = () => {
-    const currentWeekDayDate = dayjs().day(dayOfTheWeek);
-    const membersQty = membersInfo.length;
-    const multiplier = getMultiplier(membersQty, frequency);
-
-    const dayOffSet = dayjs(currentWeekDayDate).diff(startingDate, "day");
-
-    const markerData: MarkerInfo[] = membersInfo?.map((info) => {
-      const buildDates = (date: string) => {
-        const startingDay = dayjs(date);
-
-        const buildDay = (factor: number) =>
-          startingDay
-            .add(multiplier * factor + dayOffSet, "day")
-            .format("DD/MM");
-
-        const dateArray = [buildDay(-1), buildDay(0), buildDay(1), buildDay(2)];
-
-        return dateArray.map((date) => ({
-          date,
-          isMarked: markedDates.has(date),
-        }));
-      };
-
-      const datesContent = buildDates(info.startingDate);
-
-      return { name: info.member, content: datesContent };
-    });
-
-    return markerData;
-  };
-
-  const markerDataUnique: MarkerInfo[] = [
-    {
-      name: "" as Members,
-      content: [
-        {
-          date: formatDate(startingDate),
-          isMarked: !!markedDates.size,
-        },
-      ],
-    },
-  ];
-
   const renderUnique = frequency === Frequency.UNIQUE;
 
   const isDisabled = (name: Members) => currentUser !== name && !renderUnique;
 
-  const data = renderUnique ? markerDataUnique : buildMarkerDataMultiplus();
+  const data = renderUnique
+    ? buildMarkerDataUnique(selectedCard)
+    : buildMarkerDataMultiplus(selectedCard);
 
   return (
     <RowFlexContainer>
