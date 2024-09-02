@@ -59,7 +59,7 @@ export const AddNewActivity = ({ setActivityCards }: NewActivityProps) => {
     const formattedValues: ActivityInfo = {
       activityName: formValues.activityName,
       dayOfTheWeek: formValues.startingDate.day(),
-      description: formValues.description || '',
+      description: formValues.description || "",
       frequency: formValues.frequency,
       markedDates: [],
       membersInfo,

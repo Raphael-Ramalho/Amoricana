@@ -38,9 +38,8 @@ export const getMultiplier = (membersQty: number, frequency: Frequency) => {
   }
 };
 
-export const buildMarkerDataMultiplus = (selectedCard: CardInfo) => {
-  const { dayOfTheWeek, frequency, markedDates, membersInfo, startingDate } =
-    selectedCard;
+export const buildOffset = (selectedCard: CardInfo) => {
+  const { dayOfTheWeek, frequency, membersInfo, startingDate } = selectedCard;
 
   const currentWeekDayDate = dayjs().day(dayOfTheWeek);
   const membersQty = membersInfo.length;
@@ -48,23 +47,40 @@ export const buildMarkerDataMultiplus = (selectedCard: CardInfo) => {
 
   const dayOffSet = dayjs(currentWeekDayDate).diff(startingDate, "day");
 
+  return { multiplier, dayOffSet };
+};
+
+export const buildDay = (
+  date: string,
+  multiplier: number,
+  dayOffSet: number,
+  weekFactor: number
+) => {
+  return dayjs(date)
+    .add(multiplier * weekFactor + dayOffSet, "day")
+    .format("DD/MM");
+};
+
+export const buildMarkerDataMultiples = (selectedCard: CardInfo) => {
+  const { markedDates, membersInfo } = selectedCard;
+
+  const { multiplier, dayOffSet } = buildOffset(selectedCard);
+
+  const buildDates = (date: string) => {
+    const referenceArray = [-1, 0, 1, 2];
+
+    const dateArray = referenceArray.map((reference) =>
+      buildDay(date, multiplier, dayOffSet, reference)
+    );
+
+    return dateArray.map((date) => ({
+      date,
+      isMarked: markedDates.has(date),
+    }));
+  };
+
   const markerData: MarkerInfo[] = membersInfo?.map((info) => {
-    const buildDates = (date: string) => {
-      const startingDay = dayjs(date);
-
-      const buildDay = (factor: number) =>
-        startingDay.add(multiplier * factor + dayOffSet, "day").format("DD/MM");
-
-      const dateArray = [buildDay(-1), buildDay(0), buildDay(1), buildDay(2)];
-
-      return dateArray.map((date) => ({
-        date,
-        isMarked: markedDates.has(date),
-      }));
-    };
-
     const datesContent = buildDates(info.startingDate);
-
     return { name: info.member, content: datesContent };
   });
 

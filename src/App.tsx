@@ -78,12 +78,14 @@ function App() {
         />
       ),
     },
-    {
-      id: 2,
-      name: "Calendário",
-      icon: activeTab === 2 ? <CalendarFilled /> : <CalendarOutlined />,
-      content: <Calendar />,
-    },
+    // {
+    //   id: 2,
+    //   name: "Calendário",
+    //   icon: activeTab === 2 ? <CalendarFilled /> : <CalendarOutlined />,
+    //   content: (
+    //     <Calendar activityCards={activityCards} currentUser={currentUser} />
+    //   ),
+    // },
   ];
 
   return (

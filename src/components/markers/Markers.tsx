@@ -4,7 +4,7 @@ import { Card } from "../cardArea/card/Card";
 import { RowFlexContainer, Text } from "../generic/generic.style";
 import { CellButton, Column, Container, Dash, Header } from "./Markers.styled";
 import {
-  buildMarkerDataMultiplus,
+  buildMarkerDataMultiples,
   buildMarkerDataUnique,
 } from "../../helpers/helpers";
 import { updateActivity } from "../../firebase";
@@ -57,7 +57,7 @@ export const Markers = ({
 
   const data = renderUnique
     ? buildMarkerDataUnique(selectedCard)
-    : buildMarkerDataMultiplus(selectedCard);
+    : buildMarkerDataMultiples(selectedCard);
 
   return (
     <RowFlexContainer>

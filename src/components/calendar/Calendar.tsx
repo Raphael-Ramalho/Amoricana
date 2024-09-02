@@ -15,10 +15,42 @@ import {
 import { Text } from "../generic/generic.style";
 import { useState } from "react";
 import { CardInfo } from "../../types/types";
+import { Members } from "../../enum/enums";
+import { buildMarkerDataMultiples } from "../../helpers/helpers";
 
-export const Calendar = () => {
+type CalendarProps = {
+  activityCards: CardInfo[];
+  currentUser?: Members;
+};
+
+export const Calendar = ({ activityCards, currentUser }: CalendarProps) => {
   const [selectedDay, setSelectedDay] = useState<Dayjs>(dayjs());
+
+  if (!currentUser) return <></>;
+
+  //Preciso mapear todos os cards.
+  //Identificar cards que possuam o usuário cadastrado
+
+  const filteredCards = activityCards.filter((card) => {
+    const members = card.membersInfo.map((info) => info.member);
+    return members.includes(currentUser);
+  });
+
+  const buildActivityList = () => {
+    const test = filteredCards.map((card) => {
+      return buildMarkerDataMultiples(card);
+    });
+    return test;
+  };
+
+  console.log("result:", buildActivityList());
+
+  //
+  //Marcar datas no calendario
+  //Configurar onClick
+
   const activitiesForSelectedDay: CardInfo[] = [];
+
   const handleDay = (current: Dayjs, info: CellRenderInfo<Dayjs>) => {
     const todayDate = dayjs(info.today);
     const isToday =
