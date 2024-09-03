@@ -5,6 +5,7 @@ import {
   DatabaseFilled,
   DatabaseOutlined,
   EditOutlined,
+  LoadingOutlined,
   EditFilled,
 } from "@ant-design/icons";
 import {
@@ -26,6 +27,7 @@ import { InstallButton } from "./components/installButton/InstallButton";
 import { ActivityInfo, CardInfo } from "./types/types";
 import { getDocs } from "firebase/firestore";
 import { activitiesRef } from "./firebase";
+import { Spin } from "antd";
 
 function App() {
   const [currentUser, setCurrentUser] = useState<Members>();
@@ -37,20 +39,29 @@ function App() {
 
   useEffect(() => {
     const activities = async () => {
+      if (!currentUser) return;
+
       const data = await getDocs(activitiesRef);
+
+      const filteredActs = data.docs.filter((activity) => {
+        const act = activity.data() as ActivityInfo;
+        const members = act.membersInfo.map((info) => info.member);
+        return members.includes(currentUser);
+      });
+
       setActivityCards(
-        data.docs.map((doc) => {
-          const cardInfo = doc.data() as ActivityInfo;
+        filteredActs.map((activity) => {
+          const cardInfo = activity.data() as ActivityInfo;
           return {
             ...cardInfo,
-            id: doc.id,
+            id: activity.id,
             markedDates: new Set(cardInfo.markedDates),
           };
         })
       );
     };
     activities();
-  }, []);
+  }, [currentUser]);
 
   const contentArray: TabContent[] = [
     {
@@ -94,6 +105,7 @@ function App() {
         <BackButton
           type="link"
           onClick={() => {
+            setActivityCards([]);
             setCurrentUser(undefined);
             setActiveTab(0);
           }}

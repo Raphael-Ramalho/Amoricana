@@ -16,7 +16,7 @@ import { CardProps } from "./Card.type";
 import { buildWeekString } from "../../../helpers/helpers";
 import { removeActivity } from "../../../firebase";
 
-export const Card = ({
+const Card = ({
   cardInfo,
   isOnMarkerTab,
   onClick,
@@ -24,13 +24,8 @@ export const Card = ({
 }: CardProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const {
-    activityName,
-    dayOfTheWeek,
-    description,
-    frequency,
-    membersInfo,
-  } = cardInfo;
+  const { activityName, dayOfTheWeek, description, frequency, membersInfo } =
+    cardInfo;
 
   const members = membersInfo.map((obj) => obj.member);
 
@@ -110,3 +105,5 @@ export const Card = ({
     </>
   );
 };
+
+export default Card;

@@ -1,8 +1,11 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, lazy, SetStateAction, Suspense } from "react";
 import { Container } from "./CardArea.styled";
 import { AddNewActivity } from "./addNewActivity/AddNewActivity";
-import { Card } from "./card/Card";
 import { CardInfo } from "../../types/types";
+import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+
+const Card = lazy(() => import("./card/Card"));
 
 type CardAreaProps = {
   setSelectedCardId: Dispatch<SetStateAction<string | undefined>>;
@@ -17,20 +20,30 @@ export const CardArea = ({
   setActivityCards,
   activityCards,
 }: CardAreaProps) => {
+  const renderLoading = (
+    <Spin
+      indicator={
+        <LoadingOutlined style={{ fontSize: 60, color: "green" }} spin />
+      }
+    />
+  );
+
   return (
     <Container>
       <AddNewActivity setActivityCards={setActivityCards} />
 
       {activityCards.map((cardInfo) => (
-        <Card
-          key={cardInfo.activityName}
-          cardInfo={cardInfo}
-          setActivityCards={setActivityCards}
-          onClick={() => {
-            setSelectedCardId(cardInfo.id);
-            setActiveTab(1);
-          }}
-        />
+        <Suspense fallback={renderLoading}>
+          <Card
+            key={`${cardInfo.activityName}-${activityCards.length}`}
+            cardInfo={cardInfo}
+            setActivityCards={setActivityCards}
+            onClick={() => {
+              setSelectedCardId(cardInfo.id);
+              setActiveTab(1);
+            }}
+          />
+        </Suspense>
       ))}
     </Container>
   );

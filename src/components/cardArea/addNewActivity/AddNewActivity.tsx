@@ -69,8 +69,9 @@ export const AddNewActivity = ({ setActivityCards }: NewActivityProps) => {
     await addDoc(activitiesRef, formattedValues)
       .then((doc) => {
         setActivityCards((oldValues) => [
-          ...oldValues,
+
           { ...formattedValues, id: doc.id, markedDates: new Set() },
+          ...oldValues,
         ]);
 
         setIsOpen([]);

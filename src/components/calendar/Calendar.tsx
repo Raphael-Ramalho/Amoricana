@@ -28,9 +28,9 @@ export const Calendar = ({ activityCards, currentUser }: CalendarProps) => {
 
   if (!currentUser) return <></>;
 
+  //TODO -
   //Preciso mapear todos os cards.
   //Identificar cards que possuam o usuário cadastrado
-
   const filteredCards = activityCards.filter((card) => {
     const members = card.membersInfo.map((info) => info.member);
     return members.includes(currentUser);

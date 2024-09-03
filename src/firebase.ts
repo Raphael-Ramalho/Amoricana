@@ -22,9 +22,9 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 
-const availableCollections = ["activities", "activities-dev"];
+const availableCollections = ["activities", "activities-dev", "activities-prod"];
 
-export const collectionKey = availableCollections[1];
+export const collectionKey = availableCollections[2];
 
 // References
 export const activitiesRef = collection(db, collectionKey);

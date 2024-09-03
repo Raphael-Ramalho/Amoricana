@@ -1,6 +1,6 @@
 import { Frequency, Members } from "../../enum/enums";
 import { ActivityInfo, CardInfo } from "../../types/types";
-import { Card } from "../cardArea/card/Card";
+import Card from "../cardArea/card/Card";
 import { RowFlexContainer, Text } from "../generic/generic.style";
 import { CellButton, Column, Container, Dash, Header } from "./Markers.styled";
 import {
