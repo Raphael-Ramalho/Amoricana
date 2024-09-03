@@ -53,7 +53,7 @@ const Card = ({
             <div>
               <FirstContainer>
                 <NameLabel>Atividade: </NameLabel>
-                <Text>{activityName}</Text>
+                <Text style={{ paddingRight: "1rem" }}>{activityName}</Text>
               </FirstContainer>
 
               <div>

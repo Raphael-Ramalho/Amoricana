@@ -24,7 +24,7 @@ export const db = getFirestore(app);
 
 const availableCollections = ["activities-dev", "activities-prod"];
 
-export const collectionKey = availableCollections[2];
+export const collectionKey = availableCollections[1];
 
 // References
 export const activitiesRef = collection(db, collectionKey);
