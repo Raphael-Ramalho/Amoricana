@@ -5,7 +5,6 @@ import {
   DatabaseFilled,
   DatabaseOutlined,
   EditOutlined,
-  LoadingOutlined,
   EditFilled,
 } from "@ant-design/icons";
 import {
@@ -17,7 +16,6 @@ import {
 } from "./App.styled";
 import { Carousel } from "./components/carousel/Carousel";
 import { Navigation } from "./components/navigation/Navigation";
-import { Calendar } from "./components/calendar/Calendar";
 import { TabContent } from "./App.type";
 import { CardArea } from "./components/cardArea/CardArea";
 import { Markers } from "./components/markers/Markers";
@@ -27,7 +25,7 @@ import { InstallButton } from "./components/installButton/InstallButton";
 import { ActivityInfo, CardInfo } from "./types/types";
 import { getDocs } from "firebase/firestore";
 import { activitiesRef } from "./firebase";
-import { Spin } from "antd";
+import { Calendar } from "./components/calendar/Calendar";
 
 function App() {
   const [currentUser, setCurrentUser] = useState<Members>();
@@ -89,14 +87,14 @@ function App() {
         />
       ),
     },
-    // {
-    //   id: 2,
-    //   name: "Calendário",
-    //   icon: activeTab === 2 ? <CalendarFilled /> : <CalendarOutlined />,
-    //   content: (
-    //     <Calendar activityCards={activityCards} currentUser={currentUser} />
-    //   ),
-    // },
+    {
+      id: 2,
+      name: "Calendário",
+      icon: activeTab === 2 ? <CalendarFilled /> : <CalendarOutlined />,
+      content: (
+        <Calendar activityCards={activityCards} currentUser={currentUser} />
+      ),
+    },
   ];
 
   return (

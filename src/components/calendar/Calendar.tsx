@@ -16,7 +16,7 @@ import { Text } from "../generic/generic.style";
 import { useState } from "react";
 import { CardInfo } from "../../types/types";
 import { Members } from "../../enum/enums";
-import { buildMarkerDataMultiples } from "../../helpers/helpers";
+import { buildDay, buildOffset } from "../../helpers/helpers";
 
 type CalendarProps = {
   activityCards: CardInfo[];
@@ -36,14 +36,22 @@ export const Calendar = ({ activityCards, currentUser }: CalendarProps) => {
     return members.includes(currentUser);
   });
 
-  const buildActivityList = () => {
-    const test = filteredCards.map((card) => {
-      return buildMarkerDataMultiples(card);
-    });
-    return test;
-  };
+  // const buildActivityList = () => {
+  //   const test = filteredCards.map((card) => {
+  //     const userStartingDate = card.membersInfo.find(
+  //       (info) => info.member === currentUser
+  //     )!.startingDate;
 
-  console.log("result:", buildActivityList());
+  //     const { multiplier, dayOffSet } = buildOffset(card);
+
+  //     return [-2, -1, 0, 1, 2, 3].map((reference) =>
+  //       buildDay(userStartingDate, multiplier, dayOffSet, reference)
+  //     );
+  //   });
+  //   return test;
+  // };
+
+  // console.log("result:", buildActivityList());
 
   //
   //Marcar datas no calendario
@@ -53,6 +61,7 @@ export const Calendar = ({ activityCards, currentUser }: CalendarProps) => {
 
   const handleDay = (current: Dayjs, info: CellRenderInfo<Dayjs>) => {
     const todayDate = dayjs(info.today);
+    // console.log("currentMonth:", selectedDay.month());
     const isToday =
       todayDate.isSame(current, "day") && todayDate.isSame(current, "month");
 
